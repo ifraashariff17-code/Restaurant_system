@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Kitchen Dashboard{% endblock %}
+{% block content %}
+<div class="container my-5">
+    <h2 class="mb-4 text-secondary border-bottom pb-2">Live Kitchen Orders Tracker</h2>
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% if orders %}
+            {% for order in orders %}
+            <div class="col">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="card-title fw-bold text-dark mb-0">Order #{{ order.id }}</h5>
+                            <span class="badge {% if order.status == 'Pending' %}bg-warning text-dark{% elif order.status == 'Preparing' %}bg-info text-dark{% else %}bg-success{% endif %}">
+                                {{ order.status }}
+                            </span>
+                        </div>
+                        <ul class="list-group list-group-flush mb-3">
+                            {% for item in order['items'] %}
+                            <li class="list-group-item d-flex justify-content-between px-0">
+                                <span>{{ item.name }}</span>
+                                <span class="badge bg-secondary rounded-pill">x{{ item.quantity }}</span>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        <p class="fw-bold text-end">Total: ₹{{ order.total }}</p>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-sm btn-info w-50 text-white" onclick="updateStatus({{ order.id }}, 'Preparing')">Prepare</button>
+                            <button class="btn btn-sm btn-success w-50" onclick="updateStatus({{ order.id }}, 'Completed')">Complete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12 text-center py-5">
+                <h5 class="text-muted">No active orders right now! Place one from the Menu page.</h5>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+    function updateStatus(orderId, status) {
+        fetch(`/api/order/${orderId}/status`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ status: status })
+        })
+        .then(response => response.json())
+        .then(data => { location.reload(); });
+    }
+</script>
+{% endblock %}
