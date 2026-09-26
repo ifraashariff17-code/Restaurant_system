@@ -72,7 +72,8 @@ Screenshots Reference
  
 •	•  Cart Drawer: 
 
-        <img width="287" height="361" alt="Screenshot 2026-09-26 114657" src="https://github.com/user-attachments/assets/90ccf303-cd6a-43b2-ae65-e37d34e013f8" />
+   <img width="929" height="361" alt="Screenshot 2026-09-26 120735" src="https://github.com/user-attachments/assets/a9f38fe3-ad4e-47a1-9ee2-e264b4bf1943" />
+
 
 •	•  Kitchen Dashboard: 
 <img width="441" height="347" alt="Screenshot 2026-09-26 114315" src="https://github.com/user-attachments/assets/2274f9c5-cc2a-4f90-be94-09378b185167" />
